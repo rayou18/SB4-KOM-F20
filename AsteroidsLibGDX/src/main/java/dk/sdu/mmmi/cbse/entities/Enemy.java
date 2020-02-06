@@ -24,10 +24,13 @@ public class Enemy extends SpaceObject {
     private float maxSpeed;
     private float acceleration;
     private float deceleration;
+   
 
     public Enemy() {
-        x = Game.WIDTH / 2;
-        y = Game.HEIGHT / 2;
+        
+       ran = new Random(2);
+        x = (Game.WIDTH / 2)+ran.nextInt();
+        y = (Game.HEIGHT / 2) +ran.nextInt();
 
         maxSpeed = 20;
         acceleration = 5;
@@ -105,10 +108,9 @@ public class Enemy extends SpaceObject {
         // set position
         x += dx * dt;
         y += dy * dt;
-
+        movement(dt);
         setShape();
         wrap();
 
-        movement(dt);
     }
 }

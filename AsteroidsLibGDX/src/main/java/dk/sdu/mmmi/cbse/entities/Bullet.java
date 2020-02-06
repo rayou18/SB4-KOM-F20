@@ -14,39 +14,42 @@ import dk.sdu.mmmi.cbse.main.Game;
  * @author ramiy
  */
 public class Bullet extends SpaceObject {
-
+ 
     private float maxSpeed;
     private float acceleration;
     private float deceleration;
     private boolean isSpawned = false;
+   
 
-    public Bullet() { //skal måske tage en position (player eller enemy) som argument
-        
-        if(isSpawned){
-        x = Game.WIDTH / 2;
-        y = Game.HEIGHT / 2;
+    public Bullet(SpaceObject spaceObject) { //skal måske tage en position (player eller enemy) som argument
 
-        maxSpeed = 300;
-        acceleration = 200;
+        x = spaceObject.x;
+       
+        y = spaceObject.y;
+
+        maxSpeed = 50;
+        acceleration = 100;
         deceleration = 10;
 
         shapex = new float[4];
         shapey = new float[4];
 
-        radians = 3.1415f / 2;
+        radians = spaceObject.radians;
         rotationSpeed = 3;
-        }
+
     }
-    public void spawnBullet(){
+
+    public void spawnBullet() {
         System.out.println("bullet made");
         isSpawned = true;
     }
 
-    public boolean isSpawned(){
+    public boolean isSpawned() {
         return isSpawned;
     }
+
     private void setShape() {
-        if(isSpawned){
+
         shapex[0] = x + MathUtils.cos(radians) * 8;
         shapey[0] = y + MathUtils.sin(radians) * 8;
 
@@ -58,11 +61,11 @@ public class Bullet extends SpaceObject {
 
         shapex[3] = x + MathUtils.cos(radians + 4 * 3.1415f / 5) * 8;
         shapey[3] = y + MathUtils.sin(radians + 4 * 3.1415f / 5) * 8;
-        }
+
     }
 
     public void update(float dt) {
-        if(isSpawned){
+
         // accelerating
         dx += MathUtils.cos(radians) * acceleration * dt;
         dy += MathUtils.sin(radians) * acceleration * dt;
@@ -76,12 +79,11 @@ public class Bullet extends SpaceObject {
 
         // screen wrap
         wrap();
-        }
 
     }
 
     public void draw(ShapeRenderer sr) {
-        if(isSpawned){
+
         sr.setColor(1, 1, 1, 1);
 
         sr.begin(ShapeRenderer.ShapeType.Line);
@@ -96,7 +98,6 @@ public class Bullet extends SpaceObject {
 
         sr.end();
 
-    }
     }
 
 }

@@ -74,12 +74,7 @@ public class Player extends SpaceObject {
 
     public void update(float dt) {
 
-        if (shoot) {
-           bullet = new Bullet();
-           bullet.spawnBullet();
-            setBullet(bullet);
-
-        }
+       
 
         // turning
         if (left) {
