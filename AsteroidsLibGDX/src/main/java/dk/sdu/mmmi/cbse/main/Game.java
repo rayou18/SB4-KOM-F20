@@ -16,7 +16,8 @@ public class Game implements ApplicationListener {
 	public static OrthographicCamera cam;
 	
 	private GameStateManager gsm;
-	
+        
+	//only get called at the beginning of the game
         @Override
 	public void create() {
 		
@@ -35,6 +36,7 @@ public class Game implements ApplicationListener {
 		
 	}
 	
+        //is the game loop
         @Override
 	public void render() {
 		

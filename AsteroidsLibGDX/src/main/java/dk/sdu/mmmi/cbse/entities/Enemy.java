@@ -1,29 +1,36 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dk.sdu.mmmi.cbse.entities;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.mmmi.cbse.main.Game;
+import java.util.Random;
 
-public class Player extends SpaceObject {
+/**
+ *
+ * @author ramiy
+ */
+public class Enemy extends SpaceObject {
 
-    private boolean left;
-    private boolean right;
-    private boolean up;
-
+    boolean up = false;
+    boolean down = false;
+    boolean left = false;
+    boolean right = false;
+    Random ran;
     private float maxSpeed;
     private float acceleration;
     private float deceleration;
-    private boolean shoot = false;
-    private Bullet bullet;
 
-    public Player() {
-
+    public Enemy() {
         x = Game.WIDTH / 2;
         y = Game.HEIGHT / 2;
 
-        maxSpeed = 300;
-        acceleration = 200;
+        maxSpeed = 20;
+        acceleration = 5;
         deceleration = 10;
 
         shapex = new float[4];
@@ -48,6 +55,24 @@ public class Player extends SpaceObject {
         shapey[3] = y + MathUtils.sin(radians + 4 * 3.1415f / 5) * 8;
     }
 
+    public void draw(ShapeRenderer sr) {
+
+        sr.setColor(0, 1, 0, 0.5f);
+
+        sr.begin(ShapeRenderer.ShapeType.Line);
+
+        for (int i = 0, j = shapex.length - 1;
+                i < shapex.length;
+                j = i++) {
+
+            sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
+
+        }
+
+        sr.end();
+
+    }
+
     public void setLeft(boolean b) {
         left = b;
     }
@@ -60,26 +85,7 @@ public class Player extends SpaceObject {
         up = b;
     }
 
-    public void shootBullet(boolean b) {
-        shoot = b;
-    }
-
-    public Bullet getBullet() {
-        return bullet;
-    }
-
-    public void setBullet(Bullet bullet) {
-        this.bullet = bullet;
-    }
-
-    public void update(float dt) {
-
-        if (shoot) {
-           bullet = new Bullet();
-           bullet.spawnBullet();
-            setBullet(bullet);
-
-        }
+    public void movement(float dt) {
 
         // turning
         if (left) {
@@ -87,49 +93,22 @@ public class Player extends SpaceObject {
         } else if (right) {
             radians -= rotationSpeed * dt;
         }
-
         // accelerating
         if (up) {
             dx += MathUtils.cos(radians) * acceleration * dt;
             dy += MathUtils.sin(radians) * acceleration * dt;
         }
 
-        // deceleration
-        float vec = (float) Math.sqrt(dx * dx + dy * dy);
-        if (vec > 0) {
-            dx -= (dx / vec) * deceleration * dt;
-            dy -= (dy / vec) * deceleration * dt;
-        }
-        if (vec > maxSpeed) {
-            dx = (dx / vec) * maxSpeed;
-            dy = (dy / vec) * maxSpeed;
-        }
+    }
 
+    public void update(float dt) {
         // set position
         x += dx * dt;
         y += dy * dt;
 
-        // set shape
         setShape();
-
-        // screen wrap
         wrap();
 
+        movement(dt);
     }
-
-    public void draw(ShapeRenderer sr) {
-
-        sr.setColor(1, 1, 1, 1);
-        sr.begin(ShapeType.Line);
-        for (int i = 0, j = shapex.length - 1;
-                i < shapex.length;
-                j = i++) {
-
-            sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
-
-        }
-        sr.end();
-
-    }
-
 }
