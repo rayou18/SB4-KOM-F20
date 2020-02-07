@@ -14,21 +14,20 @@ import dk.sdu.mmmi.cbse.main.Game;
  * @author ramiy
  */
 public class Bullet extends SpaceObject {
- 
+
     private float maxSpeed;
     private float acceleration;
     private float deceleration;
     private boolean isSpawned = false;
-   
 
     public Bullet(SpaceObject spaceObject) { //skal måske tage en position (player eller enemy) som argument
 
         x = spaceObject.x;
-       
+
         y = spaceObject.y;
 
-        maxSpeed = 50;
-        acceleration = 100;
+        maxSpeed = 500;
+        acceleration = 1000;
         deceleration = 10;
 
         shapex = new float[4];
@@ -73,12 +72,21 @@ public class Bullet extends SpaceObject {
         // set position
         x += dx * dt;
         y += dy * dt;
-
+          // deceleration
+        float vec = (float) Math.sqrt(dx * dx + dy * dy);
+        if (vec > 0) {
+            dx -= (dx / vec) * deceleration * dt;
+            dy -= (dy / vec) * deceleration * dt;
+        }
+        if (vec > maxSpeed) {
+            dx = (dx / vec) * maxSpeed;
+            dy = (dy / vec) * maxSpeed;
+        }
         // set shape
         setShape();
 
         // screen wrap
-        wrap();
+       // wrap();
 
     }
 
