@@ -32,15 +32,14 @@ public class PlayState extends GameState {
         player = new Player();
         //enemy = new Enemy();
         playerBullets = new ArrayList<Bullet>();
-        
+
         enemies = new ArrayList<Enemy>();
         individualListOfBullets = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             System.out.println("enemy added to list");
-            enemies.add((Enemy)factory.makeSpaceObject(2, player));
-            
-       
+            enemies.add((Enemy) factory.makeSpaceObject(2, player));
+
         }
 
     }
@@ -48,14 +47,13 @@ public class PlayState extends GameState {
     public void update(float dt) {
 
         handleInput();
-      
 
         player.update(dt);
         //enemy.update(dt);
 
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).update(dt);
-            
+
         }
 
         try {
@@ -66,18 +64,14 @@ public class PlayState extends GameState {
         } catch (Exception E) {
             System.out.println("bullet not spawned yet");
         }
+        cleanupBulletList(4);
 
-        if (playerBullets.size() > 4) {
-            playerBullets.remove(0);
-        }
-        
         try {
-            for(Bullet bullet : individualListOfBullets){
+            for (Bullet bullet : individualListOfBullets) {
                 bullet.update(dt);
             }
-        }
-        catch(Exception e){
-            
+        } catch (Exception e) {
+
         }
     }
 
@@ -96,15 +90,24 @@ public class PlayState extends GameState {
         } catch (Exception E) {
             System.out.println("bullet not spawned yet");
         }
-        
-         try {
-            for(Bullet bullet : individualListOfBullets){
+
+        try {
+            for (Bullet bullet : individualListOfBullets) {
                 bullet.draw(sr);
             }
+        } catch (Exception e) {
+
         }
-        catch(Exception e){
-            
+    }
+
+    public void cleanupBulletList(int maxBullets) {
+        if (playerBullets.size() > maxBullets) {
+            playerBullets.remove(0);
         }
+
+//        if (individualListOfBullets.size() > maxBullets) {
+//            individualListOfBullets.remove(0);
+//        }
     }
 
     public void handleInput() {
@@ -116,19 +119,17 @@ public class PlayState extends GameState {
 
             playerBullets.add((Bullet) factory.makeSpaceObject(1, player));
             System.out.println("Bullet added to list");
-              
+
         }
-        
-        if(GameKeys.isPressed(GameKeys.ENTER)){
-            
-            for(Enemy enemy : enemies){
-                 individualListOfBullets.add((Bullet) factory.makeSpaceObject(1, enemy));
+
+        if (GameKeys.isPressed(GameKeys.ENTER)) {
+
+            for (Enemy enemy : enemies) {
+                individualListOfBullets.add((Bullet) factory.makeSpaceObject(1, enemy));
             }
-           
+
         }
     }
-
-   
 
     public void dispose() {
     }

@@ -48,18 +48,19 @@ public class Bullet extends SpaceObject {
     }
 
     private void setShape() {
+        float scaleDown = 1.5f;
+        
+        shapex[0] = x + MathUtils.cos(radians) * 8/scaleDown;
+        shapey[0] = y + MathUtils.sin(radians) * 8/scaleDown;
 
-        shapex[0] = x + MathUtils.cos(radians) * 8;
-        shapey[0] = y + MathUtils.sin(radians) * 8;
+        shapex[1] = x + MathUtils.cos(radians - 4 * 3.1415f / 5) * 8/scaleDown;
+        shapey[1] = y + MathUtils.sin(radians - 4 * 3.1145f / 5) * 8/scaleDown;
 
-        shapex[1] = x + MathUtils.cos(radians - 4 * 3.1415f / 5) * 8;
-        shapey[1] = y + MathUtils.sin(radians - 4 * 3.1145f / 5) * 8;
+        shapex[2] = x + MathUtils.cos(radians + 3.1415f) * 5/scaleDown;
+        shapey[2] = y + MathUtils.sin(radians + 3.1415f) * 5/scaleDown;
 
-        shapex[2] = x + MathUtils.cos(radians + 3.1415f) * 5;
-        shapey[2] = y + MathUtils.sin(radians + 3.1415f) * 5;
-
-        shapex[3] = x + MathUtils.cos(radians + 4 * 3.1415f / 5) * 8;
-        shapey[3] = y + MathUtils.sin(radians + 4 * 3.1415f / 5) * 8;
+        shapex[3] = x + MathUtils.cos(radians + 4 * 3.1415f / 5) * 8/scaleDown;
+        shapey[3] = y + MathUtils.sin(radians + 4 * 3.1415f / 5) * 8/scaleDown;
 
     }
 
@@ -92,7 +93,7 @@ public class Bullet extends SpaceObject {
 
     public void draw(ShapeRenderer sr) {
 
-        sr.setColor(1, 1, 1, 1);
+        sr.setColor(1, 0.5f,0 , 5);
 
         sr.begin(ShapeRenderer.ShapeType.Line);
 
