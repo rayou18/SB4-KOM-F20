@@ -16,10 +16,10 @@ import dk.sdu.mmmi.cbse.entities.SpaceObject;
  */
 public class SpaceObjectFactory {
 
-    public SpaceObject makeSpaceObject(int type, Player player) { // et til argument; hvor mange instanser skal laves? lav evt et loop per object.
+    public SpaceObject makeSpaceObject(int type, SpaceObject object) { // et til argument; hvor mange instanser skal laves? lav evt et loop per object.
 
         if (type == 1) {
-            return new Bullet(player);
+            return new Bullet(object);
         } else if (type == 2) {
 
 //            for (int i = 0; i < antalInstanser; i++) {

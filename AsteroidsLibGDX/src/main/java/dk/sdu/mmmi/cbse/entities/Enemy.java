@@ -99,7 +99,33 @@ public class Enemy extends SpaceObject {
         }
 
     }
+ public void enemyMovement() {
 
+        double ran = Math.random() * 2;
+        
+            //left
+            if (ran < 1) {
+                setLeft(true);
+                setRight(false);
+                setUp(true);
+            }
+            //right
+            if (ran > 1 && ran < 2) {
+                setRight(true);
+                setUp(true);
+                setLeft(false);
+            }
+            //up
+            if (ran == 2) {
+                setUp(true);
+                setLeft(false);
+                setRight(false);
+            }
+        
+
+    }
+ 
+ 
     public void update(float dt) {
         // set position
         x += dx * dt;
@@ -107,6 +133,7 @@ public class Enemy extends SpaceObject {
         movement(dt);
         setShape();
         wrap();
+        enemyMovement();
 
     }
 }
