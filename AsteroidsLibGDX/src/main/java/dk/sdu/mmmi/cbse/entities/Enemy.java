@@ -24,16 +24,15 @@ public class Enemy extends SpaceObject {
     private float maxSpeed;
     private float acceleration;
     private float deceleration;
-   
 
     public Enemy() {
-        
-       double ran = Math.random() * 50;
-        x = (Game.WIDTH / 2)+(int)ran;
-        y = (Game.HEIGHT / 2) +(int)ran;
+
+        double ran = Math.random() * 50;
+        x = (Game.WIDTH / 2) + (int) ran;
+        y = (Game.HEIGHT / 2) + (int) ran;
 
         maxSpeed = 20;
-        acceleration = 5;
+        acceleration = 20;
         deceleration = 10;
 
         shapex = new float[4];
@@ -97,39 +96,49 @@ public class Enemy extends SpaceObject {
             dx += MathUtils.cos(radians) * acceleration * dt;
             dy += MathUtils.sin(radians) * acceleration * dt;
         }
-
-    }
- public void enemyMovement() {
-
-        double ran = Math.random() * 2;
-        
-            //left
-            if (ran < 1) {
-                setLeft(true);
-                setRight(false);
-                setUp(true);
-            }
-            //right
-            if (ran > 1 && ran < 2) {
-                setRight(true);
-                setUp(true);
-                setLeft(false);
-            }
-            //up
-            if (ran == 2) {
-                setUp(true);
-                setLeft(false);
-                setRight(false);
-            }
-        
-
-    }
- 
- 
-    public void update(float dt) {
+        // deceleration
+        float vec = (float) Math.sqrt(dx * dx + dy * dy);
+        if (vec > 0) {
+            dx -= (dx / vec) * deceleration * dt;
+            dy -= (dy / vec) * deceleration * dt;
+        }
+        if (vec > maxSpeed) {
+            dx = (dx / vec) * maxSpeed;
+            dy = (dy / vec) * maxSpeed;
+        }
         // set position
         x += dx * dt;
         y += dy * dt;
+
+    }
+
+    public void enemyMovement() {
+
+        double ran = Math.random() * 2;
+
+        //left
+        if (ran < 1) {
+            setLeft(true);
+            setRight(false);
+            setUp(true);
+        }
+        //right
+        if (ran > 1 && ran < 2) {
+            setRight(true);
+            setUp(true);
+            setLeft(false);
+        }
+        //up
+        if (ran == 2) {
+            setUp(true);
+            setLeft(false);
+            setRight(false);
+        }
+
+    }
+
+    public void update(float dt) {
+
         movement(dt);
         setShape();
         wrap();

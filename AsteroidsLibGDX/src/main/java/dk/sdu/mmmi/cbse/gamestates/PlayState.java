@@ -73,6 +73,8 @@ public class PlayState extends GameState {
         } catch (Exception e) {
 
         }
+        
+         enemiesShootOnRandom();
     }
 
     public void draw() {
@@ -109,6 +111,15 @@ public class PlayState extends GameState {
 //            individualListOfBullets.remove(0);
 //        }
     }
+    
+    public void enemiesShootOnRandom(){
+        double ran = Math.random() * 300;
+        if(ran <5){
+              for (Enemy enemy : enemies) {
+                individualListOfBullets.add((Bullet) factory.makeSpaceObject(1, enemy));
+            }
+        }
+    }
 
     public void handleInput() {
         player.setLeft(GameKeys.isDown(GameKeys.LEFT));
@@ -132,6 +143,7 @@ public class PlayState extends GameState {
     }
 
     public void dispose() {
+        
     }
 
 }
