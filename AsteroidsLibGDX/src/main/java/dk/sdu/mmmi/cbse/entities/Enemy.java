@@ -28,9 +28,9 @@ public class Enemy extends SpaceObject {
 
     public Enemy() {
         
-       ran = new Random(2);
-        x = (Game.WIDTH / 2)+ran.nextInt();
-        y = (Game.HEIGHT / 2) +ran.nextInt();
+       double ran = Math.random() * 50;
+        x = (Game.WIDTH / 2)+(int)ran;
+        y = (Game.HEIGHT / 2) +(int)ran;
 
         maxSpeed = 20;
         acceleration = 5;
@@ -67,13 +67,9 @@ public class Enemy extends SpaceObject {
         for (int i = 0, j = shapex.length - 1;
                 i < shapex.length;
                 j = i++) {
-
             sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
-
         }
-
         sr.end();
-
     }
 
     public void setLeft(boolean b) {

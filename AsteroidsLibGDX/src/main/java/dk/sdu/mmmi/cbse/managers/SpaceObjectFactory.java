@@ -15,16 +15,20 @@ import dk.sdu.mmmi.cbse.entities.SpaceObject;
  * @author Rami
  */
 public class SpaceObjectFactory {
-    
-    
-    public SpaceObject makeSpaceObject(int type, Player player){
-        
-        if(type==1){
+
+    public SpaceObject makeSpaceObject(int type, Player player) { // et til argument; hvor mange instanser skal laves? lav evt et loop per object.
+
+        if (type == 1) {
             return new Bullet(player);
+        } else if (type == 2) {
+
+//            for (int i = 0; i < antalInstanser; i++) {
+//                add. to list new Enemy();
+//            }
+            return new Enemy();
+        } //else if(type==3) {return new Asteroid}
+        else {
+            return null;
         }
-        else if(type==2){
-        return new Enemy();
-        }
-        else return null;
     }
 }
