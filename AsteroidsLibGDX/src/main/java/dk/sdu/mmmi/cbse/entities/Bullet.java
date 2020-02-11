@@ -27,7 +27,7 @@ public class Bullet extends SpaceObject {
         y = spaceObject.y;
 
         maxSpeed = 500;
-        acceleration = 1000;
+        acceleration = 500;
         deceleration = 10;
 
         shapex = new float[4];

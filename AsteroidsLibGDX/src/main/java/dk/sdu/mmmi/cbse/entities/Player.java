@@ -111,6 +111,8 @@ public class Player extends SpaceObject {
         wrap();
 
     }
+    
+    
 
     public void draw(ShapeRenderer sr) {
 

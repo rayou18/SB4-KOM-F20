@@ -27,7 +27,7 @@ public class Enemy extends SpaceObject {
 
     public Enemy() {
 
-        double ran = Math.random() * 50;
+        double ran = Math.random() * 1000;
         x = (Game.WIDTH / 2) + (int) ran;
         y = (Game.HEIGHT / 2) + (int) ran;
 
